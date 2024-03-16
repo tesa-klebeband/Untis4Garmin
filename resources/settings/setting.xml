@@ -1,0 +1,76 @@
+<settings>
+    <setting propertyKey="@Properties.Username" title="@Strings.UsernameTitle">
+        <settingConfig type="alphaNumeric" required="true"></settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Password" title="@Strings.PasswordTitle">
+        <settingConfig type="password" required="true"></settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.UntisUrl" title="@Strings.UntisUrlTitle">
+        <settingConfig type="alphaNumeric" required="true"></settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.SchoolName" title="@Strings.SchoolTitle">
+        <settingConfig type="alphaNumeric" required="true"></settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.SubjectNormalColor" title="@Strings.SubjectNormalColorTitle">
+        <settingConfig type="list" required="true">
+            <listEntry value="0">@Strings.Black</listEntry>
+            <listEntry value="1">@Strings.White</listEntry>
+            <listEntry value="2">@Strings.Red</listEntry>
+            <listEntry value="3">@Strings.Green</listEntry>
+            <listEntry value="4">@Strings.Blue</listEntry>
+            <listEntry value="5">@Strings.Yellow</listEntry>
+            <listEntry value="6">@Strings.Orange</listEntry>
+            <listEntry value="7">@Strings.Purple</listEntry>
+            <listEntry value="8">@Strings.Gray</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.SubjectCancelledColor" title="@Strings.SubjectCancelledColorTitle">
+        <settingConfig type="list" required="true">
+            <listEntry value="0">@Strings.Black</listEntry>
+            <listEntry value="1">@Strings.White</listEntry>
+            <listEntry value="2">@Strings.Red</listEntry>
+            <listEntry value="3">@Strings.Green</listEntry>
+            <listEntry value="4">@Strings.Blue</listEntry>
+            <listEntry value="5">@Strings.Yellow</listEntry>
+            <listEntry value="6">@Strings.Orange</listEntry>
+            <listEntry value="7">@Strings.Purple</listEntry>
+            <listEntry value="8">@Strings.Gray</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.SubjectChangedColor" title="@Strings.SubjectChangedColorTitle">
+        <settingConfig type="list" required="true">
+            <listEntry value="0">@Strings.Black</listEntry>
+            <listEntry value="1">@Strings.White</listEntry>
+            <listEntry value="2">@Strings.Red</listEntry>
+            <listEntry value="3">@Strings.Green</listEntry>
+            <listEntry value="4">@Strings.Blue</listEntry>
+            <listEntry value="5">@Strings.Yellow</listEntry>
+            <listEntry value="6">@Strings.Orange</listEntry>
+            <listEntry value="7">@Strings.Purple</listEntry>
+            <listEntry value="8">@Strings.Gray</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.NoSubjectColor" title="@Strings.NoSubjectColorTitle">
+        <settingConfig type="list" required="true">
+            <listEntry value="0">@Strings.Black</listEntry>
+            <listEntry value="1">@Strings.White</listEntry>
+            <listEntry value="2">@Strings.Red</listEntry>
+            <listEntry value="3">@Strings.Green</listEntry>
+            <listEntry value="4">@Strings.Blue</listEntry>
+            <listEntry value="5">@Strings.Yellow</listEntry>
+            <listEntry value="6">@Strings.Orange</listEntry>
+            <listEntry value="7">@Strings.Purple</listEntry>
+            <listEntry value="8">@Strings.Gray</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.DateSystem" title="@Strings.DateSystemTitle">
+        <settingConfig type="list" required="true">
+            <listEntry value="0">@Strings.DDMMYYYYTitle</listEntry>
+            <listEntry value="1">@Strings.MMDDYYYYTitle</listEntry>
+            <listEntry value="2">@Strings.YYYYMMDDTitle</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.DateDelimiter" title="@Strings.DateDelimiterTitle">
+        <settingConfig type="alphaNumeric" required="true"></settingConfig>
+    </setting>
+</settings>

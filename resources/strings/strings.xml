@@ -1,0 +1,31 @@
+<strings>
+    <string id="AppName">Untis4Garmin</string>
+    <string id="NextDay">Next Day</string>
+    <string id="PreviousDay">Previous Day</string>
+    <string id="NextLesson">Next Lesson</string>
+    <string id="PreviousLesson">Previous Lesson</string>
+    <string id="Today">Today</string>
+    <string id="Refresh">Refresh</string>
+    <string id="Black">Black</string>
+    <string id="White">White</string>
+    <string id="Red">Red</string>
+    <string id="Green">Green</string>
+    <string id="Blue">Blue</string>
+    <string id="Yellow">Yellow</string>
+    <string id="Orange">Orange</string>
+    <string id="Purple">Purple</string>
+    <string id="Gray">Gray</string>
+    <string id="SubjectNormalColorTitle">Normal Subject Color</string>
+    <string id="SubjectCancelledColorTitle">Cancelled Subject Color</string>
+    <string id="SubjectChangedColorTitle">Changed Subject Color</string>
+    <string id="NoSubjectColorTitle">No Subject Color</string>
+    <string id="UsernameTitle">Username</string>
+    <string id="PasswordTitle">Password</string>
+    <string id="UntisUrlTitle">Untis URL</string>
+    <string id="SchoolTitle">School</string>
+    <string id="DateSystemTitle">Date System</string>
+    <string id="DDMMYYYYTitle">DDMMYYYY</string>
+    <string id="MMDDYYYYTitle">MMDDYYYY</string>
+    <string id="YYYYMMDDTitle">YYYYMMDD</string>
+    <string id="DateDelimiterTitle">Date Delimiter</string>
+</strings>

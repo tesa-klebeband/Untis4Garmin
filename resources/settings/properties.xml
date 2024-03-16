@@ -1,0 +1,12 @@
+<properties>
+    <property id="Username" type="string"></property>
+    <property id="Password" type="string"></property>
+    <property id="UntisUrl" type="string"></property>
+    <property id="SchoolName" type="string"></property>
+    <property id="SubjectNormalColor" type="number">5</property>
+    <property id="SubjectCancelledColor" type="number">8</property>
+    <property id="SubjectChangedColor" type="number">7</property>
+    <property id="NoSubjectColor" type="number">4</property>
+    <property id="DateSystem" type="number">0</property>
+    <property id="DateDelimiter" type="string">.</property>
+</properties>

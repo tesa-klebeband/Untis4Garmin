@@ -1,0 +1,8 @@
+<menu id="MainMenu">
+    <menu-item id="NextLesson" label="@Strings.NextLesson" />
+    <menu-item id="PreviousLesson" label="@Strings.PreviousLesson" />
+    <menu-item id="NextDay" label="@Strings.NextDay" />
+    <menu-item id="PreviousDay" label="@Strings.PreviousDay" />
+    <menu-item id="Today" label="@Strings.Today" />
+    <menu-item id="Refresh" label="@Strings.Refresh" />
+</menu>
