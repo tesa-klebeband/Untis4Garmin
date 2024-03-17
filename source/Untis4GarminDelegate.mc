@@ -8,7 +8,9 @@ class Untis4GarminDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onMenu() as Boolean {
-        WatchUi.pushView(new Rez.Menus.MainMenu(), new Untis4GarminMenuDelegate(), WatchUi.SLIDE_UP);
+        var menu = new Rez.Menus.MainMenu();
+        menu.setTitle("Menu");
+        WatchUi.pushView(menu, new Untis4GarminMenuDelegate(), WatchUi.SLIDE_UP);
         return true;
     }
 

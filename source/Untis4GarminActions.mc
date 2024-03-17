@@ -55,6 +55,8 @@ module Untis4GarminActions {
         if (lessonNumber < apiClient.timetableData.size()) {
             lessonNumber++;
             updateLessonNumber = false;
+        } else {
+            nextDay();
         }
         WatchUi.requestUpdate();
     }
@@ -63,6 +65,8 @@ module Untis4GarminActions {
         if (lessonNumber > 0) {
             lessonNumber--;
             updateLessonNumber = false;
+        } else {
+            previousDay();
         }
         WatchUi.requestUpdate();
     }
