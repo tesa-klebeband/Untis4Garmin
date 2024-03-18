@@ -83,7 +83,7 @@ module Untis4GarminActions {
         timeH = info.hour;
         timeM = info.min;
         dateD = info.day;
-        timeM = info.month;
+        dateM = info.month;
         dateYe = info.year;
 
         updateTimetable = true;

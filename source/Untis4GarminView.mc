@@ -8,11 +8,11 @@ var updateTimetable = true;
 var apiClient = new UntisApiClient();
 var lessonNumber = 0;
 var updateLessonNumber = true;
-var timeH = 13;
-var timeM = 05;
-var dateD = 13;
-var dateM = 03;
-var dateYe = 2024;
+var timeH = 0;
+var timeM = 0;
+var dateD = 0;
+var dateM = 0;
+var dateYe = 0;
 
 class Untis4GarminView extends WatchUi.View {
     const colorMap = {
@@ -93,7 +93,7 @@ class Untis4GarminView extends WatchUi.View {
             dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_BLACK);
             dc.fillRectangle(0, height * 0.2, width, height * 0.6);
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(width / 2, nonLessonInfoY, fontLesson, "Error getting timetable", Graphics.TEXT_JUSTIFY_CENTER);
+            dc.drawText(width / 2, nonLessonInfoY, fontLesson, "Loading error", Graphics.TEXT_JUSTIFY_CENTER);
             return;
         }
 
@@ -194,7 +194,7 @@ class Untis4GarminView extends WatchUi.View {
         timeH = info.hour;
         timeM = info.min;
         dateD = info.day;
-        timeM = info.month;
+        dateM = info.month;
         dateYe = info.year;
     }
 }
