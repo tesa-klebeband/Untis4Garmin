@@ -153,8 +153,14 @@ class Untis4GarminView extends WatchUi.View {
                     dc.fillRectangle((width / numLessons) * i, height * 0.2, width / numLessons, height * 0.6);
                     dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
                     dc.drawText((width / numLessons) * i + width / (numLessons * 2), subjectY, fontLesson, lesson["subject"], Graphics.TEXT_JUSTIFY_CENTER);
-                    dc.drawText((width / numLessons) * i + width / (numLessons * 2), roomY, fontLesson, lesson["room"], Graphics.TEXT_JUSTIFY_CENTER);
-                    dc.drawText((width / numLessons) * i + width / (numLessons * 2), classY, fontLesson, lesson["class"], Graphics.TEXT_JUSTIFY_CENTER); 
+                    dc.drawText((width / numLessons) * i + width / (numLessons * 2), classY, fontLesson, lesson["class"], Graphics.TEXT_JUSTIFY_CENTER);
+                    
+                    var roomStr = lesson["room"];
+                    if (lesson["origroom"] != -1) {
+                        roomStr += "(" + lesson["origroom"] + ")";
+                        dc.setColor(Graphics.COLOR_BLACK, changedColor);
+                    }
+                    dc.drawText((width / numLessons) * i + width / (numLessons * 2), roomY, fontLesson, roomStr, Graphics.TEXT_JUSTIFY_CENTER);
                 }
             }
         } else {

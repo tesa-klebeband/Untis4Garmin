@@ -37,12 +37,16 @@ class UntisApiClient {
                         "room" => "215",
                         "class" => "10A",
                         "state" => 1 // 0 = cancelled, 1 = normal, 2 = changed
+                        "id" => 1234,
+                        "origroom" = -1 // -1 = no room change, Any other value = original room
                     },
                     {
                         "subject" => "English",
                         "room" => "213",
                         "class" => "10A",
                         "state" => 0
+                        "id" => 1235,
+                        "origroom" = 122
                     }
                 ]
             },
@@ -52,7 +56,10 @@ class UntisApiClient {
                     {
                         "subject" => "Art",
                         "room" => "3",
+                        "class" => "10A",
                         "state" => 1
+                        "id" => 1236,
+                        "origroom" = -1
                     }
                 ]
             }
@@ -154,6 +161,7 @@ class UntisApiClient {
                 WatchUi.requestUpdate();
             } else {
                 var result = data["result"];
+                
                 var lessons = [];
                 for (var i = 0; i < result.size(); i++) {
                     var lesson = {
@@ -191,12 +199,33 @@ class UntisApiClient {
                             } else {
                                 state = 1;
                             }
+
+                            var origroom = -1;
+                            if (result[j]["ro"][0].hasKey("orgname")) {
+                                origroom = result[j]["ro"][0]["orgname"];
+                            }
+
                             var lessonData = {
                                 "subject" => subject,
                                 "room" => room,
                                 "class" => klasse,
-                                "state" => state
+                                "state" => state,
+                                "id" => result[j]["su"][0]["id"],
+                                "origroom" => origroom
                             };
+
+                            if (state == 0) {   // Might be wrong in some cases, still investigating how the api handles this
+                                for (var k = 0; k < lessons.size(); k++) {
+                                    for (var l = 0; l < lessons[k]["lessons"].size(); l++) {
+                                        if (lessons[k]["lessons"][l]["id"] == lessonData["id"]) {
+                                            if (lessons[k]["lessons"][l]["state"] == 1) {
+                                                lessons[k]["lessons"][l]["state"] = 2;
+                                            }                                            
+                                        }
+                                    }
+                                }
+                            }
+
                             lesson["lessons"].add(lessonData);
                         }
                     }
@@ -211,6 +240,7 @@ class UntisApiClient {
                         }
                     }
                 }
+
                 self.timetableData = lessons;
                 self.logout();
             }
