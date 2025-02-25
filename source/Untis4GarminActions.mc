@@ -1,6 +1,8 @@
 import Toybox.System;
 import Toybox.Time;
 import Toybox.WatchUi;
+import Toybox.Lang;
+import Toybox.Application.Storage;
 
 module Untis4GarminActions {
     const monthDays = [
@@ -52,7 +54,17 @@ module Untis4GarminActions {
     }
 
     public function nextLesson() as Void {
-        if (lessonNumber < apiClient.timetableData.size()) {
+        var timetableData = apiClient.timetableData;
+        var info = Toybox.Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        var timetableAvailable = apiClient.timetableAvailable;
+        if ((dateD == info.day && dateM == info.month && dateYe == info.year) && apiClient.timetableAvailable == false) {
+            var storageDateString = Lang.format("$1$$2$$3$$4$$5$", [dateYe, "-", dateM, "-", dateD]);
+            timetableData = Storage.getValue(storageDateString);
+            if (timetableData != null) {
+                timetableAvailable = true;
+            }
+        }
+        if (timetableAvailable && lessonNumber < timetableData.size()) {
             lessonNumber++;
             updateLessonNumber = false;
         } else {
@@ -90,4 +102,5 @@ module Untis4GarminActions {
         updateLessonNumber = true;
         WatchUi.requestUpdate();
     }
+
 }

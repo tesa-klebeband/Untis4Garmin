@@ -2,6 +2,7 @@ import Toybox.Graphics;
 import Toybox.WatchUi;
 import Toybox.Lang;
 import Toybox.Time;
+import Toybox.Application.Storage;
 
 var settingsChanged = true;
 var updateTimetable = true;
@@ -84,12 +85,33 @@ class Untis4GarminView extends WatchUi.View {
         } else {
             dateString = Lang.format("$1$$2$$3$$4$$5$", [dateYe, dateDelimiter, dateM, dateDelimiter, dateD]);
         }
+        var storageDateString = Lang.format("$1$$2$$3$$4$$5$", [dateYe, "-", dateM, "-", dateD]);
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(width / 2, timeY, fontTD, timeString, Graphics.TEXT_JUSTIFY_CENTER);
         dc.drawText(width / 2, dateY, fontTD, dateString, Graphics.TEXT_JUSTIFY_CENTER);
 
-        if (apiClient.timetableError) {
+        var timetableData = null;
+        var timetableAvailable = false;
+        var dataFromLocal = false;
+        var timetableError = false;
+        if (apiClient.timetableAvailable) {
+            timetableData = apiClient.timetableData;
+            timetableAvailable = true;
+            if (isTodaySelected()) {
+                Storage.clearValues();
+                Storage.setValue(storageDateString, timetableData);
+            }
+        } else if (isTodaySelected()) {
+            timetableData = Storage.getValue(storageDateString);
+            if (timetableData != null) {
+                timetableAvailable = true;
+                dataFromLocal = true;
+            }
+        }
+
+        timetableError = apiClient.timetableError;
+        if (apiClient.timetableError && !timetableAvailable) {
             dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_BLACK);
             dc.fillRectangle(0, height * 0.2, width, height * 0.6);
             dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
@@ -97,8 +119,8 @@ class Untis4GarminView extends WatchUi.View {
             return;
         }
 
-        if (apiClient.timetableAvailable) {
-            if (apiClient.timetableData.size() == 0) {
+        if (timetableAvailable) {
+            if (timetableData.size() == 0) {
                 dc.setColor(noSubjectColor, Graphics.COLOR_BLACK);
                 dc.fillRectangle(0, height * 0.2, width, height * 0.6);
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
@@ -108,20 +130,20 @@ class Untis4GarminView extends WatchUi.View {
                 var lessonTime = 0;
                 if (updateLessonNumber) {
                     lessonNumber = 0;
-                    for (var i = 0; i < apiClient.timetableData.size(); i++) {
-                        lessonTime = apiClient.timetableData[i]["time"];
+                    for (var i = 0; i < timetableData.size(); i++) {
+                        lessonTime = timetableData[i]["time"];
                         if (lessonTime > formattedTime) {
                             lessonNumber = i;
                             break;
                         }
                     }
                     if (lessonTime < formattedTime) {
-                        lessonNumber = apiClient.timetableData.size();
+                        lessonNumber = timetableData.size();
                     }
                 }
 
-                if (lessonNumber >= apiClient.timetableData.size()) {
-                    lessonNumber = apiClient.timetableData.size();
+                if (lessonNumber >= timetableData.size()) {
+                    lessonNumber = timetableData.size();
                     dc.setColor(noSubjectColor, Graphics.COLOR_BLACK);
                     dc.fillRectangle(0, height * 0.2, width, height * 0.6);
                     dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
@@ -130,7 +152,7 @@ class Untis4GarminView extends WatchUi.View {
                 }
 
                 if (!updateLessonNumber) {
-                    lessonTime = apiClient.timetableData[lessonNumber]["time"];
+                    lessonTime = timetableData[lessonNumber]["time"];
                 }
 
                 dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
@@ -138,9 +160,9 @@ class Untis4GarminView extends WatchUi.View {
                 dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
                 dc.drawText(width / 2, timeY, fontTD, lessonTime / 100 + ":" + (lessonTime % 100).format("%02d"), Graphics.TEXT_JUSTIFY_CENTER);
 
-                var numLessons = apiClient.timetableData[lessonNumber]["lessons"].size();
+                var numLessons = timetableData[lessonNumber]["lessons"].size();
                 for (var i = 0; i < numLessons; i++) {
-                    var lesson = apiClient.timetableData[lessonNumber]["lessons"][i];
+                    var lesson = timetableData[lessonNumber]["lessons"][i];
                     var color;
                     if (lesson["state"] == 0) {
                         color = cancelledColor;
@@ -162,6 +184,14 @@ class Untis4GarminView extends WatchUi.View {
                     }
                     dc.drawText((width / numLessons) * i + width / (numLessons * 2), roomY, fontLesson, roomStr, Graphics.TEXT_JUSTIFY_CENTER);
                 }
+            }
+            if (dataFromLocal) {
+                if (timetableError) {
+                    dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+                } else {
+                    dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+                }
+                dc.fillCircle(width / 3, timeY + fontHeightTD / 2, fontHeightTD / 8);
             }
         } else {
             dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -203,4 +233,10 @@ class Untis4GarminView extends WatchUi.View {
         dateM = info.month;
         dateYe = info.year;
     }
+
+    function isTodaySelected() as Boolean {
+        var info = Toybox.Time.Gregorian.info(Time.now(), Time.FORMAT_SHORT);
+        return dateD == info.day && dateM == info.month && dateYe == info.year;
+    }
+
 }
