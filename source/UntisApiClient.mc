@@ -183,7 +183,10 @@ class UntisApiClient {
                     for (var j = 0; j < result.size(); j++) {
                         if (result[i]["startTime"] == result[j]["startTime"]) {
                             var subject = result[j]["su"][0]["name"];
-                            var room = result[j]["ro"][0]["name"];
+                            var room = "";
+                            if (result[j]["ro"].size() > 0) {
+                                room = result[j]["ro"][0]["name"];
+                            }
                             var klasse = "";
                             for (var x = 0; x < result[j]["kl"].size(); x++) {
                                 if (x > 0) {
@@ -201,7 +204,7 @@ class UntisApiClient {
                             }
 
                             var origroom = -1;
-                            if (result[j]["ro"][0].hasKey("orgname")) {
+                            if (result[j]["ro"].size() > 0 && result[j]["ro"][0].hasKey("orgname")) {
                                 origroom = result[j]["ro"][0]["orgname"];
                             }
 
