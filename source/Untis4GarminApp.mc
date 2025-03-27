@@ -13,8 +13,8 @@ class Untis4GarminApp extends Application.AppBase {
     function onStop(state as Dictionary?) {
     }
 
-    function getInitialView() as Array<Views or InputDelegates>? {
-        return [ new Untis4GarminView(), new Untis4GarminDelegate()] as Array<Views or InputDelegates>;
+    function getInitialView() as [Views] or [Views, InputDelegates] {
+        return [ new Untis4GarminView(), new Untis4GarminDelegate()];
     }
 
     function onSettingsChanged() {
