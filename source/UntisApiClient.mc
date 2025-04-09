@@ -182,7 +182,10 @@ class UntisApiClient {
                     
                     for (var j = 0; j < result.size(); j++) {
                         if (result[i]["startTime"] == result[j]["startTime"]) {
-                            var subject = result[j]["su"][0]["name"];
+                            var subject = "";
+                            if (result[j]["su"].size() > 0) {
+                                subject = result[j]["su"][0]["name"];
+                            }
                             var room = "";
                             if (result[j]["ro"].size() > 0) {
                                 room = result[j]["ro"][0]["name"];
@@ -213,22 +216,8 @@ class UntisApiClient {
                                 "room" => room,
                                 "class" => klasse,
                                 "state" => state,
-                                "id" => result[j]["su"][0]["id"],
                                 "origroom" => origroom
                             };
-
-                            if (state == 0) {   // Might be wrong in some cases, still investigating how the api handles this
-                                for (var k = 0; k < lessons.size(); k++) {
-                                    for (var l = 0; l < lessons[k]["lessons"].size(); l++) {
-                                        if (lessons[k]["lessons"][l]["id"] == lessonData["id"]) {
-                                            if (lessons[k]["lessons"][l]["state"] == 1) {
-                                                lessons[k]["lessons"][l]["state"] = 2;
-                                            }                                            
-                                        }
-                                    }
-                                }
-                            }
-
                             lesson["lessons"].add(lessonData);
                         }
                     }
